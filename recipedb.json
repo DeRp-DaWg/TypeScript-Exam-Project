@@ -1,0 +1,36 @@
+{
+  "recipe": [
+    {
+      "id": 0,
+      "name": "Lasagne",
+      "description": "Lasange er skøn, som kræver få ingredienser og er nemme at lave. Røde lasange har en smuk orange farve, de smager dejligt og er et godt bud på en skøn aftensmad, der kan tilfredsstille alle sanser. Fyld lasangene med det, du har mest lyst til.",
+      "duration": 30,
+      "ingredients": [
+  	    {
+          "ingredientName": "løg, finthakket",
+          "amount": 2,
+          "measurement": ""
+        },
+        {
+          "ingredientName": "fed hvidløg, finthakket",
+          "amount": 4,
+          "measurement": ""
+        },
+        {
+          "ingredientName": "hakket oksekød",
+          "amount": 400,
+          "measurement": "g"
+        },
+        {
+          "ingredientName": "oregano, tørret",
+          "amount": 2,
+          "measurement": "tsk"
+        }
+      ],
+  	  "instruction": [
+        "Sauter løg og hvidløg i olivenolie, til de er gennemsigtige.",
+        "Tilsæt kødet og brun det veed høj varme. Skru ned for varmet og tilsæt resten af ingredienserne."
+      ]
+    }
+  ]
+}
