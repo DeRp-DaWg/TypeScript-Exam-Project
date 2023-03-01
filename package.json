@@ -7,11 +7,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "json-server": "json-server -p 3000 --watch recipedb.json"
+    "json-server": "json-server -p 3000 --watch db.json"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router": "^6.8.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
