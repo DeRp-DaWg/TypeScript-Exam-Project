@@ -27,13 +27,58 @@
           "measurement": "tsk"
         }
       ],
-  	  "instruction": [
+  	  "instructions": [
         "Sauter løg og hvidløg i olivenolie, til de er gennemsigtige.",
         "Tilsæt kødet og brun det ved høj varme. Skru ned for varmet og tilsæt resten af ingredienserne."
       ],
       "tags": [
         "italy",
         "non-vegetarian"
+      ]
+    }
+  ],
+  "tag": [
+    {
+      "id": 0,
+      "name": "island",
+      "imgurl": "island.png"
+    },
+    {
+      "id": 1,
+      "name": "pakistan",
+      "imgurl": "pakistan.png"
+    },
+    {
+      "id": 2,
+      "name": "vegan",
+      "imgurl": "vegan.png"
+    },
+    {
+      "id": 3,
+      "name": "pølsehorn",
+      "imgurl": "pølsehorn.png"
+    },
+    {
+      "id": 4,
+      "name": "hamburger",
+      "imgurl": "hamburger.png"
+    }
+  ],
+  "category": [
+    {
+      "id": 0,
+      "name": "countries",
+      "tags": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "name": "kød",
+      "tags": [
+        3,
+        4
       ]
     }
   ]

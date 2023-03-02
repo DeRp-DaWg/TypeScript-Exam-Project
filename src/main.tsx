@@ -6,6 +6,8 @@ import Index from './routes/Index'
 import RecipePage from './routes/RecipePage'
 import Root from './routes/Root'
 import SearchResultsPage from './routes/SearchResultsPage'
+import RecipeLoader from "./loaders/RecipeLoader"
+import IndexLoader from "./loaders/IndexLoader"
 
 const router = createBrowserRouter([
   {
@@ -14,10 +16,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
+        loader: IndexLoader,
         element: <Index/>
       },
       {
-        path: "recipe:recipeId",
+        path: "recipe/:recipeId",
+        loader: RecipeLoader,
         element: <RecipePage/>
       },
       {
