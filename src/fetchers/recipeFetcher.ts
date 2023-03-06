@@ -6,3 +6,9 @@ export async function getRecipe(id: number): Promise<Recipe> {
   const data = response.json()
   return data
 }
+
+export async function getRecipeByName(name: string): Promise<Recipe> {
+  const response = await fetch(baseURL+"recipe/"+[name])
+  const data = response.json()
+  return data
+}

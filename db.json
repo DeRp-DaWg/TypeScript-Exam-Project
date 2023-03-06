@@ -34,7 +34,8 @@
       "tags": [
         "italy",
         "non-vegetarian"
-      ]
+      ],
+      "imgurl": "lasagne.png"
     }
   ],
   "tag": [
@@ -62,6 +63,11 @@
       "id": 4,
       "name": "hamburger",
       "imgurl": "island.png"
+    },
+    {
+      "id": 5,
+      "name": "danmark",
+      "imgurl": "island.png"
     }
   ],
   "category": [
@@ -70,7 +76,8 @@
       "name": "countries",
       "tags": [
         0,
-        1
+        1,
+        5
       ]
     },
     {

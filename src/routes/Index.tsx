@@ -23,7 +23,7 @@ export default function Index({}: Props) {
   
   return (
     <div>
-      <Slide/>
+      <Slide category={categories[0]}/>
       {renderCategoryContainers()}
       <Link to={"recipe"}/>
     </div>

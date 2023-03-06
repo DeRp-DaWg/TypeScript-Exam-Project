@@ -8,6 +8,7 @@ import Root from './routes/Root'
 import SearchResultsPage from './routes/SearchResultsPage'
 import RecipeLoader from "./loaders/RecipeLoader"
 import IndexLoader from "./loaders/IndexLoader"
+import SearchLoader from "./loaders/SearchLoader"
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,12 @@ const router = createBrowserRouter([
       },
       {
         path: "search",
+        loader: SearchLoader,
+        element: <SearchResultsPage/>
+      },
+      {
+        path: "search/:tagIds",
+        loader: SearchLoader,
         element: <SearchResultsPage/>
       }
     ]
