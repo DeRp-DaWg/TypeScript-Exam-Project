@@ -1,7 +1,7 @@
 import { getTag } from "../fetchers/tagFetcher";
-import { tag } from "../types";
+import { Tag } from "../types";
 
 export default async function loader({params}: any) {
-  const tag: tag = await getTag(params.tagId)
+  const tag: Tag = await getTag(params.tagId)
   return {tag}
 }

@@ -1,12 +1,12 @@
 import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { getRecipe } from '../fetchers/recipeFetcher'
-import { recipe } from '../types'
+import { Recipe } from '../types'
 
 interface Props {}
 
 export default function RecipePage({}: Props) {
-  const {recipe} = useLoaderData() as {recipe: recipe}
+  const {recipe} = useLoaderData() as {recipe: Recipe}
   
   function renderIngredients(): JSX.Element[] {
     return recipe.ingredients.map(

@@ -1,9 +1,9 @@
 import React from 'react'
-import { tag } from '../types'
+import { Tag } from '../types'
 
 type Props = {
   items: string[]
-  searchSetter: React.Dispatch<React.SetStateAction<tag[]>>
+  searchSetter: React.Dispatch<React.SetStateAction<Tag[]>>
 }
 
 export default function SearchBar({items, searchSetter}: Props) {
