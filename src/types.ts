@@ -1,32 +1,32 @@
-export type recipe = {
+export type Recipe = {
   "id": number,
   "name": string,
   "description": string
   "duration": number,
-  "ingredients": [ingredient],
+  "ingredients": [Ingredient],
   "instructions": [string],
   "tags": [string]
 }
 
-export type ingredient = {
+export type Ingredient = {
   "ingredientName": string,
   "amount": number,
   "measurement": string
 }
 
-export type unfilledCategory = {
+export type UnfilledCategory = {
   "id": number,
   "name": string,
   "tags": number[]
 }
 
-export type category = {
+export type Category = {
   "id": number,
   "name": string,
-  "tags": tag[]
+  "tags": Tag[]
 }
 
-export type tag = {
+export type Tag = {
   "id": number,
   "name": string,
   "imgurl": string

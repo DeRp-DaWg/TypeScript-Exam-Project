@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import { category, tag } from '../types'
+import { Category, Tag } from '../types'
 import CardGroup from './CardGroup'
 import SearchBar from './SearchBar'
 
 type Props = {
-  category: category
+  category: Category
 }
 
 export default function CategoryContainer({category}: Props) {
-  const [allTags, setAllTags] = useState<tag[]>(category.tags)
-  const [tags, setTags] = useState<tag[]>(JSON.parse(JSON.stringify(allTags)))
+  const [allTags, setAllTags] = useState<Tag[]>(category.tags)
+  const [tags, setTags] = useState<Tag[]>(JSON.parse(JSON.stringify(allTags)))
   
   return (
     <div className='categoryContainer'>

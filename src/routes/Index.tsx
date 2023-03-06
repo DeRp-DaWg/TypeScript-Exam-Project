@@ -2,16 +2,16 @@ import React from 'react'
 import { Link, useLoaderData } from 'react-router-dom'
 import CategoryContainer from '../components/CategoryContainer'
 import Slide from '../components/Slide'
-import { category } from '../types'
+import { Category } from '../types'
 
 type Props = {
   
 }
 
 export default function Index({}: Props) {
-  const {categories} = useLoaderData() as {categories: category[]}
+  const {categories} = useLoaderData() as {categories: Category[]}
   
-  console.log(categories)
+  // console.log(categories)
   
   function renderCategoryContainers(): JSX.Element[] {
     return categories.map(category => {

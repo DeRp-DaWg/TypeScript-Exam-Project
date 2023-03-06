@@ -1,9 +1,9 @@
 import React from 'react'
-import { tag } from '../types'
+import { Tag } from '../types'
 import Card from './Card'
 
 type Props = {
-  tags: tag[]
+  tags: Tag[]
 }
 
 export default function CardGroup({tags}: Props) {

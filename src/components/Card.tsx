@@ -1,8 +1,8 @@
 import React from 'react'
-import { tag } from '../types'
+import { Tag } from '../types'
 
 type Props = {
-  tag: tag
+  tag: Tag
 }
 
 export default function Card({tag}: Props) {

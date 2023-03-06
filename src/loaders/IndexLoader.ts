@@ -1,15 +1,18 @@
 import { getAllUnfilledCategories } from "../fetchers/categoryFetcher";
 import { getTag } from "../fetchers/tagFetcher";
-import { category, tag, unfilledCategory } from "../types";
+import { Category, Tag, UnfilledCategory } from "../types";
 
 export default async function loader({params}: any) {
-  async function fillCategory(unfilledCategory: unfilledCategory): Promise<category> {
+  // The json-server database does not send the "tag" entities together with the "category" entitites.
+  // Instead it sends the id's of each tag, the name of this type is "unfilledCategory".
+  // fillCategory takes a "unfilledCategory" and returns a promise of a "category" by fetching every "tag" entity by their id.
+  async function fillCategory(unfilledCategory: UnfilledCategory): Promise<Category> {
     const tagPromises = unfilledCategory.tags.map(async (tagId) => {
-      const tag: tag = await getTag(tagId)
+      const tag: Tag = await getTag(tagId)
       return tag
     })
     const tags = await Promise.all(tagPromises)
-    const category: category = {
+    const category: Category = {
       id: unfilledCategory.id,
       name: unfilledCategory.name,
       tags: tags
@@ -17,7 +20,7 @@ export default async function loader({params}: any) {
     return category
   }
   
-  const unfilledCategories: unfilledCategory[] = await getAllUnfilledCategories()
+  const unfilledCategories: UnfilledCategory[] = await getAllUnfilledCategories()
   const categoryPromises = await unfilledCategories.map(async (unfilledCategory) => {
     const category = await fillCategory(unfilledCategory)
     return category
