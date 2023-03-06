@@ -13,8 +13,12 @@ export default function CategoryContainer({category}: Props) {
   
   return (
     <div className='categoryContainer'>
-      {/* <SearchBar items={allTags} searchSetter={setTags}/> */}
-      <CardGroup tags={tags}/>
+
+        <div className="item">
+        <CardGroup tags={tags}/>
+        </div>
+    
+      {/* <SearchBar items={allTags} searchSetter={setTags}/> */} 
     </div>
   )
 }

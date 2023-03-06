@@ -51,17 +51,17 @@
     {
       "id": 2,
       "name": "vegan",
-      "imgurl": "vegan.png"
+      "imgurl": "island.png"
     },
     {
       "id": 3,
       "name": "pølsehorn",
-      "imgurl": "pølsehorn.png"
+      "imgurl": "island.png"
     },
     {
       "id": 4,
       "name": "hamburger",
-      "imgurl": "hamburger.png"
+      "imgurl": "island.png"
     }
   ],
   "category": [
