@@ -1,9 +1,11 @@
 import React from 'react'
 
-interface Props {}
+type Props = {}
 
 export default function Slide({}: Props) {
   return (
-    <div>Slide</div>
+    <div>
+      
+    </div>
   )
 }
