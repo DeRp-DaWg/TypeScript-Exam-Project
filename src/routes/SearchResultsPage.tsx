@@ -36,14 +36,25 @@ export default function SearchResultsPage({}: Props) {
     setTagButtons(results)
   }
 
-  return (
-    <div>
-    <form>
-      <input type="text" id="tagSearch" onChange={updateTagSearch}/>
-      {tagButtons}
-      <input type="text" id="mainSearch" onChange={event => setMainSearch(event.target.value)}/>
-      <button type="button" onClick={sendMainSearch}>Search</button>
-    </form>
-    </div>
+  return (<div className='divContainer'>
+        <h1 className="headline">Søg efter opskrifter</h1>
+        <div className="containerSearch">
+            <input type="text" placeholder="tags" id="tagSearch" onChange={updateTagSearch}/>
+            {tagButtons}
+            <input type="text" placeholder="main search" id="mainSearch" onChange={event => setMainSearch(event.target.value)}/>
+            <button type="button" onClick={sendMainSearch}>Search</button>
+      </div>
+      <div className="lines"></div>
+  </div>
   )
 }
+
+
+// <div>
+// <form>
+  // <input type="text" id="tagSearch" onChange={updateTagSearch}/>
+  // {tagButtons}
+  // <input type="text" id="mainSearch" onChange={event => setMainSearch(event.target.value)}/>
+  // <button type="button" onClick={sendMainSearch}>Search</button>
+// </form>
+// </div>

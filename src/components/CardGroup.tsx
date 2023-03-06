@@ -16,7 +16,7 @@ export default function CardGroup({tags}: Props) {
   }
   
   return (
-    <div className='cardGroup'>
+    <div className='item'>
       {renderCards()}
     </div>
   )
