@@ -15,20 +15,19 @@ import * as dotenv from 'dotenv'
 import typeDefs from './graphql_schemas';
 import Mutation from './resolvers/mutation';
 import Query from './resolvers/query';
-import Address from './resolvers/address';
-import Person from './resolvers/person';
 
 import usersRouter from './routes/users';
-dotenv.config();
+dotenv.config({path: "./config.env"});
 // console.log('DB: ... :',process.env)
 
 const app = express();
 
 // Connect to MongoDB database
 const DB = process.env.DATABASE_DEV!
-.replace( '<password>', process.env.DATABASE_PASSWORD!)
+.replace('<deployment', process.env.DATABASE_DEPLOYMENT!)
+.replace('<database>', process.env.DATABASE_NAME!)
 .replace('<username>', process.env.DATABASE_USERNAME!)
-.replace('<database>', process.env.DATABASE_NAME!);
+.replace('<password>', process.env.DATABASE_PASSWORD!);
 
 mongoose.connect(DB, {
 }).then(() => console.log('DB connection successful!'));
@@ -38,9 +37,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers: {
     Query,
-    Address,
-    Person,
-    Mutation,
+    Mutation
   },
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });

@@ -1,7 +1,11 @@
-import {Person, Address} from "../models/person";
+import Recipe from "../models/recipeModel";
+import Ingredient from "../models/ingredientModel";
+import Category from "../models/categoryModel";
 export default {
-    persons: async ()=> { const lst = await Person.find({}).populate('address'); console.log('POPULATE: ',lst); return lst},//{return [{name:'perter',age:33}]}//Person.find({})
-    person: async (_parent:never, { id }:{id:String}) => await Person.findById(id).populate('address'),
-    address: async (_parent:never, { id }:{id:String}) => await Address.findById(id),
-    addresses: async ()=> await Address.find({}).populate('persons'),
+    recipe: async (_parent:never, { id }:{id:String}) => await Recipe.findById(id).populate('ingredients'),
+    recipes: async ()=> await Recipe.find({}).populate('ingredients'),
+    ingredient: async (_parent:never, { id }:{id:String}) => await Ingredient.findById(id),
+    ingredients: async ()=> await Ingredient.find({}),
+    category: async (_parent:never, { id }:{id:String}) => await Category.findById(id).populate('recipes'),
+    categories: async ()=> await Category.find({}).populate('recipes'),
 }

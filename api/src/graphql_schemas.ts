@@ -1,38 +1,48 @@
 const typeDefs = `#graphql
 
-type Address {
-  id: ID!
-  street: String!
-  city: String!
-  country: String!
-  zip: String!
-  persons: [Person!]! 
+type Recipe {
+  id: ID!,
+  name: String!,
+  description: String!,
+  duration: Int!,
+  ingredients: [Ingredient!]!,
+  instructions: [String!]!
 }
 
-type Person {
-  id: ID!
-  name: String!
-  age: Int!
-  address: Address
+type Ingredient {
+  id: ID!,
+  name: String!,
+  amount: Int!,
+  measurement: String!
+}
+
+type Category {
+  id: ID!,
+  name: String!,
+  recipes: [Recipe!]!
 }
 
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. 
-  type Query {
-    persons: [Person!]!
-    person(id: ID): Person
-    address(id: ID): Address
-    addresses: [Address!]!
-  }
+type Query {
+  recipe(id: ID): Recipe
+  recipes: [Recipe!]!
+  ingredient(id: ID): Ingredient
+  ingredients: [Ingredient!]!
+  category(id: ID): Category
+  categories: [Category!]!
+}
 
-  type Mutation {
-    createPerson(name: String!, age: Int!): Person
-    updatePerson(id: ID!, name: String!, age: Int!): Person
-    deletePerson(id: ID!): Boolean
-    createAddress(street: String!, city: String!, country: String!, zip: String!): Address
-    removePersonFromAddress(personId: ID!, addressId: ID!): Boolean
-    addPersonToAddress(personId: ID!, addressId: ID!): Boolean
-  }
+type Mutation {
+  createRecipe(name: String!, description: String!, duration: Int!): Recipe
+  deleteRecipe(id: ID!): Boolean
+  updateRecipe(id: ID!, name: String!, description: String!, duration: Int!): Recipe
+  createIngredient(name: String!, amount: Int!, measurement: String!): Ingredient
+  deleteIngredient(id: ID!): Boolean
+  addIngredientToRecipe(recipeId: ID!, ingredientId: ID!): Boolean
+  removeIngredientFromRecipe(recipeId: ID!, ingredientId: ID!): Boolean
+  addInstructionToRecipe(recipeId: ID!, instruction: String!): Boolean
+}
 `;
 
 export default typeDefs;

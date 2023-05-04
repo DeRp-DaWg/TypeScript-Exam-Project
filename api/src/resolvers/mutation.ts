@@ -1,71 +1,93 @@
-import {Person, Address} from "../models/person";
-import { PersonDocumentType, AddressTypeDocument } from '../types';
 import { ObjectId} from 'mongoose';
-  export default {
-    createPerson: async (_parent:never, { name, age }:PersonDocumentType) => {
-      const newPerson = new Person({ name, age });
-      await newPerson.save();
-      return newPerson;
-    },
-    deletePerson: async (_parent:never, { id }:PersonDocumentType) => {
-      const result = await Person.findByIdAndDelete(id);
-      return result ? true : false;
-    },
-    updatePerson: async (_parent:never, { id, name, age }:PersonDocumentType) => {
-      const result = await Person.findByIdAndUpdate(id, {name, age});
-      return result;
-    },
-    createAddress: async (_parent:never, { street, city, country, zip }:AddressTypeDocument) => {
-      const addr = new Address({ street, city, country, zip });
-      await addr.save();
-      return addr;
-    },
-
-    removePersonFromAddress: async (
-      _parent: never,
-      { personId, addressId }: { personId: string, addressId: string }
-    ) => {
-      try {
-        const person = await Person.findById(personId);
-        const address = await Address.findOneAndUpdate(
-          { _id: addressId },
-          { $pull: { persons: personId } },
-          { new: true }
-        );
-        if (!person || !address) {
-          throw new Error('Person or address not found.');
-        }
-        await Person.findByIdAndUpdate(personId, { address: null });
-        return true;
-      } catch (error) {
-        console.error(error);
-        return false;
+import Recipe from "../models/recipeModel";
+import Ingredient from "../models/ingredientModel";
+import Category from "../models/categoryModel";
+import { RecipeType, RecipeTypeDocument, IngredientType, IngredientTypeDocument, CategoryType, CategoryTypeDocument } from '../types';
+export default {
+  createRecipe: async (_parent: never, { name, description, duration }: RecipeTypeDocument) => {
+    const newRecipe = new Recipe({ name, description, duration });
+    await newRecipe.save();
+    return newRecipe;
+  },
+  
+  deleteRecipe: async (_parent:never, { id }: RecipeTypeDocument) => {
+    const result = await Recipe.findByIdAndDelete(id);
+    return result ? true : false;
+  },
+  
+  updateRecipe: async (_parent:never, { id, name, description, duration }: RecipeTypeDocument) => {
+    const result = await Recipe.findByIdAndUpdate(id, {name, description, duration});
+    return result;
+  },
+  
+  createIngredient: async (_parent: never, { name, amount, measurement }: IngredientTypeDocument) => {
+    const newIngredient = new Ingredient({ name, amount, measurement });
+    await newIngredient.save();
+    return newIngredient;
+  },
+  
+  deleteIngredient: async (_parent:never, { id }: IngredientTypeDocument) => {
+    const result = await Ingredient.findByIdAndDelete(id);
+    return result ? true : false;
+  },
+  
+  addIngredientToRecipe: async (
+    _parent: never,
+    { recipeId, ingredientId }: { recipeId: string, ingredientId: string }
+  ) => {
+    try {
+      const recipe : RecipeTypeDocument | null = await Recipe.findById(recipeId).populate('ingredients');
+      const ingredient : IngredientTypeDocument | null = await Ingredient.findById(ingredientId);
+      if (!recipe) { throw new Error(`Recipe with ID ${recipeId} not found.`); }
+      if (!ingredient) { throw new Error(`Ingredient with ID ${ingredientId} not found.`); }
+      if (recipe.ingredients.some((r: any) => r.id === recipeId)) {
+        throw new Error(`Recipe with ID ${recipeId} is already associated with ingredient with ID ${ingredientId}.`);
       }
-    },
-    addPersonToAddress: async (
-      _parent: never,
-      { personId, addressId }: { personId: string, addressId: string }
-    ) => {
-      try {
-        const address = await Address.findById(addressId).populate('persons') as AddressTypeDocument;
-        const person : PersonDocumentType | null = await Person.findById(personId);
-
-        if (!person) { throw new Error(`Person with ID ${personId} not found.`); }
-        if (!address) { throw new Error(`Address with ID ${addressId} not found.`); }
-        if (address.persons.some((p: any) => p.id === personId)) {
-          throw new Error(`Person with ID ${personId} is already associated with address with ID ${addressId}.`);
-        }
-        person.address = address;
-        address.persons.push(person._id);
-        await address.save();
-        await person.save();
-        // return address;
-        return true;
-      } catch (error) {
-        console.error(error);
-        // return null;
-        return false;
+      recipe.ingredients.push(ingredient._id);
+      await recipe.save();
+      return true;
+    } catch (error) {
+      console.error(error);
+      // return null;
+      return false;
+    }
+  },
+  
+  removeIngredientFromRecipe: async (
+    _parent: never,
+    { recipeId, ingredientId }: { recipeId: string, ingredientId: string }
+  ) => {
+    try {
+      const recipe = await Recipe.findOneAndUpdate(
+        { _id: recipeId },
+        { $pull: { ingredients: ingredientId } },
+        { new: true }
+      );
+      const ingredient = await Ingredient.findById(ingredientId)
+      if (!recipe || !ingredient) {
+        throw new Error('Recipe or ingredient not found.');
       }
-    },
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  
+  addInstructionToRecipe: async (
+    _parent: never,
+    { recipeId, instruction }: { recipeId: string, instruction: string }
+  ) => {
+    try {
+      const recipe : RecipeTypeDocument | null = await Recipe.findById(recipeId).populate("instructions");
+      if (!recipe) { throw new Error(`Recipe with ID ${recipeId} not found.`); }
+      recipe.instructions.push(instruction);
+      recipe.save();
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
 };
 

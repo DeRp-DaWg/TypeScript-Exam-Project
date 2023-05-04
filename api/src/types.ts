@@ -1,31 +1,26 @@
 import { Document } from 'mongoose';
-type PersonType = {
-    // id: string;
-    name: string;
-    age: number;
-    address: AddressType;
-};
-type AddressType = {
-    street: {
-        type: string;
-        required: true;
-    };
-    city: {
-        type: string;
-        required: true;
-    }
-    country: {
-        type: string;
-        required: true;
-    }
-    zip: {
-        type: string;
-        required: true;
-    }
-    persons: PersonType[];
+
+type RecipeType = {
+    name: string
+    description: string
+    duration: number
+    ingredients: IngredientType[]
+    instructions: string[]
 };
 
-interface AddressTypeDocument extends AddressType, Document {} // Extend both the Typescript type and the Mongoose Document type to get access to both sets of properties.
-interface PersonDocumentType extends PersonType, Document {} 
+type IngredientType = {
+    name: string
+    amount: number
+    measurement: string
+};
 
-export type { PersonType, AddressType, AddressTypeDocument, PersonDocumentType };
+type CategoryType = {
+    name: string
+    recipes: RecipeType[]
+};
+
+interface RecipeTypeDocument extends RecipeType, Document {};
+interface IngredientTypeDocument extends IngredientType, Document {};
+interface CategoryTypeDocument extends CategoryType, Document {};
+
+export type { RecipeType, RecipeTypeDocument, IngredientType, IngredientTypeDocument, CategoryType, CategoryTypeDocument };
