@@ -39,6 +39,7 @@ type Mutation {
   updateRecipe(id: ID!, name: String!, description: String!, duration: Int!): Recipe
   createIngredient(name: String!, amount: Int!, measurement: String!): Ingredient
   deleteIngredient(id: ID!): Boolean
+  createCategory(name: String!): Category
   addIngredientToRecipe(recipeId: ID!, ingredientId: ID!): Boolean
   removeIngredientFromRecipe(recipeId: ID!, ingredientId: ID!): Boolean
   addInstructionToRecipe(recipeId: ID!, instruction: String!): Boolean

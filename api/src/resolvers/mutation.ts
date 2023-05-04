@@ -31,6 +31,12 @@ export default {
     return result ? true : false;
   },
   
+  createCategory: async (_parent: never, { name }: CategoryTypeDocument) => {
+    const newCategory = new Category({ name });
+    await newCategory.save();
+    return newCategory;
+  },
+  
   addIngredientToRecipe: async (
     _parent: never,
     { recipeId, ingredientId }: { recipeId: string, ingredientId: string }

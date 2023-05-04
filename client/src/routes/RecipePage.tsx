@@ -1,19 +1,19 @@
 import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { getRecipe } from '../fetchers/recipeFetcher'
-import { Recipe } from '../types'
+import { RecipeType } from '../types'
 
 interface Props {}
 
 export default function RecipePage({}: Props) {
-  const {recipe} = useLoaderData() as {recipe: Recipe}
+  const {recipe} = useLoaderData() as {recipe: RecipeType}
   
   function renderIngredients(): JSX.Element[] {
     return recipe.ingredients.map(
       ingredient => {
         return (
-          <tr key={"ingredient-"+ingredient.ingredientName}>
-            <td>{ingredient.ingredientName}</td>
+          <tr key={"ingredient-"+ingredient.name}>
+            <td>{ingredient.name}</td>
             <td>{ingredient.amount}</td>
             <td>{ingredient.measurement}</td>
           </tr>

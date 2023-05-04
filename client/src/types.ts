@@ -1,33 +1,20 @@
-export type Recipe = {
-  "id": number,
-  "name": string,
-  "description": string
-  "duration": number,
-  "ingredients": [Ingredient],
-  "instructions": [string],
-  "tags": [string]
-}
+type RecipeType = {
+    name: string
+    description: string
+    duration: number
+    ingredients: IngredientType[]
+    instructions: string[]
+};
 
-export type Ingredient = {
-  "ingredientName": string,
-  "amount": number,
-  "measurement": string
-}
+type IngredientType = {
+    name: string
+    amount: number
+    measurement: string
+};
 
-export type UnfilledCategory = {
-  "id": number,
-  "name": string,
-  "tags": number[]
-}
+type CategoryType = {
+    name: string
+    recipes: RecipeType[]
+};
 
-export type Category = {
-  "id": number,
-  "name": string,
-  "tags": Tag[]
-}
-
-export type Tag = {
-  "id": number,
-  "name": string,
-  "imgurl": string
-}
+export type { RecipeType, IngredientType, CategoryType };

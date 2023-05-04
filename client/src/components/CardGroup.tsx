@@ -1,23 +1,23 @@
-import React from 'react'
-import { Tag } from '../types'
-import Card from './Card'
+// import React from 'react'
+// import { Tag } from '../types'
+// import Card from './Card'
 
-type Props = {
-  tags: Tag[]
-}
+// type Props = {
+//   tags: Tag[]
+// }
 
-export default function CardGroup({tags}: Props) {
-  function renderCards(): JSX.Element[] {
-    return tags.map(tag => {
-      return (
-        <Card key={"tag-"+tag.id} tag={tag}></Card>
-      )
-    })
-  }
+// export default function CardGroup({tags}: Props) {
+//   function renderCards(): JSX.Element[] {
+//     return tags.map(tag => {
+//       return (
+//         <Card key={"tag-"+tag.id} tag={tag}></Card>
+//       )
+//     })
+//   }
   
-  return (
-    <div className='item'>
-      {renderCards()}
-    </div>
-  )
-}
+//   return (
+//     <div className='item'>
+//       {renderCards()}
+//     </div>
+//   )
+// }
