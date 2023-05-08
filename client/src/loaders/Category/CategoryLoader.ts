@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import { CategoryType } from "../types";
-import ApolloClientProvider from "../ApolloClientProvider";
+import { CategoryType } from "../../types";
+import ApolloClientProvider from "../../ApolloClientProvider";
 
 // type params = {
 //   recipeId: number

@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import { RecipeType } from "../types";
-import ApolloClientProvider from "../ApolloClientProvider";
+import { RecipeType } from "../../types";
+import ApolloClientProvider from "../../ApolloClientProvider";
 
 // type params = {
 //   recipeId: number
@@ -29,5 +29,6 @@ export default async function loader({params}: any) {
   
   const result = await client.query({query: query, variables: { recipeId: params.recipeId }});
   const recipe = result.data.recipe as RecipeType;
+  console.log(result)
   return {recipe}
 }

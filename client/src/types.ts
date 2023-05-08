@@ -1,4 +1,5 @@
 type RecipeType = {
+    id?: string
     name: string
     description: string
     duration: number
@@ -7,12 +8,14 @@ type RecipeType = {
 };
 
 type IngredientType = {
+    id?: string
     name: string
     amount: number
     measurement: string
 };
 
 type CategoryType = {
+    id?: string
     name: string
     recipes: RecipeType[]
 };

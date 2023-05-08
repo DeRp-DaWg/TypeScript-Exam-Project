@@ -1,17 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './index.css'
+// import './index.css'
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import Index from './routes/Index'
-import RecipePage from './routes/RecipePage'
-import CategoryPage from './routes/CategoryPage'
+import RecipeRoute from './routes/Recipe/RecipeRoute'
+import CategoryRoute from './routes/Category/CategoryRoute'
 import Root from './routes/Root'
 import SearchResultsPage from './routes/SearchResultsPage'
-import RecipeLoader from "./loaders/RecipeLoader"
+import RecipesLoader from "./loaders/Recipe/RecipesLoader"
 import IndexLoader from "./loaders/IndexLoader"
-import CategoryLoader from "./loaders/CategoryLoader"
-
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import CategoryLoader from "./loaders/Category/CategoryLoader"
+import ViewRecipesRoute from './routes/Recipe/ViewRecipesRoute';
+import ViewCategoriesRoute from './routes/Category/ViewCategoriesRoute';
+import CategoriesLoader from './loaders/Category/CategoriesLoader';
+import RecipeLoader from './loaders/Recipe/RecipeLoader';
+import ViewRecipeRoute from './routes/Recipe/ViewRecipeRoute';
+import CreateCategoryRoute from './routes/Category/CreateCategoryRoute';
+import CreateCategoryAction from './actions/CreateCategoryAction';
 
 // const client = new ApolloClient({
 //   uri: 'http://localhost:4000/graphql',
@@ -24,19 +34,45 @@ const router = createBrowserRouter([
     element: <Root/>,
     children: [
       {
-        path: "",
+        index: true,
         loader: IndexLoader,
         element: <Index/>
       },
       {
-        path: "recipe/:recipeId",
-        loader: RecipeLoader,
-        element: <RecipePage/>
+        path: "recipes",
+        element: <RecipeRoute/>,
+        children: [
+          {
+            index: true,
+            loader: RecipesLoader,
+            element: <ViewRecipesRoute/>
+          },
+          {
+            path: ":recipeId",
+            loader: RecipeLoader,
+            element: <ViewRecipeRoute/>
+          }
+        ]
       },
       {
-        path: "category/:categoryId",
-        loader: CategoryLoader,
-        element: <CategoryPage/>
+        path: "categories",
+        element: <CategoryRoute/>,
+        children: [
+          {
+            index: true,
+            loader: CategoriesLoader,
+            element: <ViewCategoriesRoute/>
+          },
+          {
+            path: ":categoryId",
+            loader: CategoryLoader
+          },
+          {
+            path: "create",
+            action: CreateCategoryAction,
+            element: <CreateCategoryRoute/>
+          }
+        ]
       }
       // {
       //   path: "search",
@@ -56,7 +92,9 @@ const router = createBrowserRouter([
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <>
   <RouterProvider router={router}/>
+  </>
   // <BrowserRouter>
   //   <ApolloProvider client={client}>
   //     <Root />

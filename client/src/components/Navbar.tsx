@@ -1,30 +1,51 @@
+import { AppBar, Toolbar, Typography, useTheme, Tabs, Tab } from '@mui/material'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { matchPath, useLocation, Link } from 'react-router-dom';
 
-interface Props {}
+type Props = {}
 
 export default function Navbar({}: Props) {
-  return (<> 
-   {/* // <!-- HEADER SECTION WITH LOGO AND NAV --> */}
-    <div className="header">
-       <div className="logoPosition ">
-         <Link id="logoName" to={"/"}>LOGO</Link>
-       </div>
-        
-        <nav>
-            <Link className="a-tag" to={"search"}>Søg opskrifter</Link>
-            <Link className="a-tag" to={"search"}>Example</Link>
-            <Link className="a-tag" to={"search"}>Example</Link>
-        </nav>
-      </div>
+  const theme = useTheme()
+  
+  function useRouteMatch(patterns: readonly string[]) {
+    const { pathname } = useLocation();
+  
+    for (let i = 0; i < patterns.length; i += 1) {
+      const pattern = patterns[i];
+      const possibleMatch = matchPath(pattern, pathname);
+      if (possibleMatch !== null) {
+        return possibleMatch;
+      }
+    }
+  
+    return null;
+  }
+  
+  function CustomTabs() {
+    const routeMatch = useRouteMatch(["/", "/search", "/categories", "/recipes"])
+    let currentTab = routeMatch?.pattern.path
+    if (!currentTab) {currentTab = "/"}
+    
+    return (
+      <Tabs value={currentTab} textColor="secondary" indicatorColor="secondary">
+        <Tab label="Home" value="/" to="/" component={Link} sx={{color: theme.palette.common.black}}/>
+        <Tab label="Search" value="/search" to="/search" component={Link} sx={{color: theme.palette.common.black}}/>
+        <Tab label="Categories" value="/categories" to="/categories" component={Link} sx={{color: theme.palette.common.black}}/>
+        <Tab label="Recipes" value="/recipes" to="/recipes" component={Link} sx={{color: theme.palette.common.black}}/>
+      </Tabs>
+    )
+  }
+  
+  return (
+    <>
+      <AppBar position="static" enableColorOnDark>
+        <Toolbar sx={{ flexWrap: 'wrap' }}>
+          <Typography variant="h6" color="text.primary" noWrap sx={{ flexGrow: 1 }}>
+            Recipe site
+          </Typography>
+          <CustomTabs/>
+        </Toolbar>
+      </AppBar>
     </>
   )
 }
-
-   
-
-
-// <div className="logo" />
-//     {/* <h1><a href=#aboutMe></a>About Me</h1> */}
-//     <Link to={"/"}></Link>Logo</Link>
-// <div />

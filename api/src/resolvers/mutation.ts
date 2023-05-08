@@ -94,6 +94,24 @@ export default {
       console.error(error);
       return false;
     }
+  },
+  
+  addRecipeToCategory: async (
+    _parent: never,
+    { recipeId, categoryId }: { recipeId: string, categoryId: string }
+  ) => {
+    try {
+      const recipe : RecipeTypeDocument | null = await Recipe.findById(recipeId);
+      const category : CategoryTypeDocument | null = await Category.findById(categoryId).populate("recipes");
+      if (!recipe) { throw new Error(`Recipe with ID ${recipeId} not found.`); };
+      if (!category) { throw new Error(`Category with ID ${categoryId} not found.`); };
+      category.recipes.push(recipe);
+      await category.save();
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 };
 

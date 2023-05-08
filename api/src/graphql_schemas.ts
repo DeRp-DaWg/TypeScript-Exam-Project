@@ -34,15 +34,23 @@ type Query {
 }
 
 type Mutation {
+  # Recipe CRUD
   createRecipe(name: String!, description: String!, duration: Int!): Recipe
   deleteRecipe(id: ID!): Boolean
   updateRecipe(id: ID!, name: String!, description: String!, duration: Int!): Recipe
+  
+  # Ingredient CRUD
   createIngredient(name: String!, amount: Int!, measurement: String!): Ingredient
   deleteIngredient(id: ID!): Boolean
+  
+  # Category CRUD
   createCategory(name: String!): Category
+  
+  # Other
   addIngredientToRecipe(recipeId: ID!, ingredientId: ID!): Boolean
   removeIngredientFromRecipe(recipeId: ID!, ingredientId: ID!): Boolean
   addInstructionToRecipe(recipeId: ID!, instruction: String!): Boolean
+  addRecipeToCategory(recipeId: ID!, categoryId: ID!): Boolean
 }
 `;
 
