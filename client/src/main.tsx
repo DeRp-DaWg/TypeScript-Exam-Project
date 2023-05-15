@@ -22,6 +22,9 @@ import RecipeLoader from './loaders/Recipe/RecipeLoader';
 import ViewRecipeRoute from './routes/Recipe/ViewRecipeRoute';
 import CreateCategoryRoute from './routes/Category/CreateCategoryRoute';
 import CreateCategoryAction from './actions/CreateCategoryAction';
+import CreateRecipeRoute from './routes/Recipe/CreateRecipeRoute';
+import CreateRecipeAction from './actions/CreateRecipeAction';
+import ViewCategoryRoute from './routes/Category/ViewCategoryRoute';
 
 // const client = new ApolloClient({
 //   uri: 'http://localhost:4000/graphql',
@@ -51,6 +54,11 @@ const router = createBrowserRouter([
             path: ":recipeId",
             loader: RecipeLoader,
             element: <ViewRecipeRoute/>
+          },
+          {
+            path: "create",
+            action: CreateRecipeAction,
+            element: <CreateRecipeRoute/>
           }
         ]
       },
@@ -65,7 +73,8 @@ const router = createBrowserRouter([
           },
           {
             path: ":categoryId",
-            loader: CategoryLoader
+            loader: CategoryLoader,
+            element: <ViewCategoryRoute/>
           },
           {
             path: "create",

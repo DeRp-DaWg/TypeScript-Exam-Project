@@ -35,7 +35,7 @@ export default function Root({}: Props) {
       },
       text: {
         primary: color.deepPurple[50],
-        secondary: color.deepPurple[900],
+        secondary: color.deepPurple[200],
         disabled: color.deepPurple[100]
       }
     }

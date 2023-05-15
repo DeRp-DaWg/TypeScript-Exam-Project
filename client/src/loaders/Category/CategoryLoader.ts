@@ -25,6 +25,5 @@ export default async function loader({params}: any) {
   
   const result = await client.query({query: query, variables: { categoryId: params.categoryId }});
   const category = result.data.category as CategoryType;
-  console.log(category)
   return {category}
 }
