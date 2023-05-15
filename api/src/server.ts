@@ -16,7 +16,7 @@ import typeDefs from './graphql_schemas';
 import Mutation from './resolvers/mutation';
 import Query from './resolvers/query';
 
-import usersRouter from './routes/users';
+import categoryRouter from './routes/categoriesRoute';
 dotenv.config({path: "./config.env"});
 // console.log('DB: ... :',process.env)
 
@@ -24,7 +24,6 @@ const app = express();
 
 // Connect to MongoDB database
 const DB = process.env.DATABASE_DEV!
-.replace('<deployment', process.env.DATABASE_DEPLOYMENT!)
 .replace('<database>', process.env.DATABASE_NAME!)
 .replace('<username>', process.env.DATABASE_USERNAME!)
 .replace('<password>', process.env.DATABASE_PASSWORD!);
@@ -55,8 +54,12 @@ expressMiddleware(server, {}));
 await new Promise<void>((resolve) => httpServer.listen({ port: 4000 }, resolve));
 console.log(`🚀 GraphQL Server ready at http://localhost:4000/graphql`);
 
-app.use('/api/users', usersRouter);
-console.log(`🚀 Users API ready at http://localhost:4000/api/users`);
+
+// must use this to pass JSON data in the body through postman. No graphql
+app.use(express.json());
+
+app.use('/api/categories', categoryRouter);
+console.log(`🚀 Recipes API ready at http://localhost:4000/api/categories`);
 
 app.get('*', function(req, res){
   res.send({ status: 404, message: 'Ressource not found' });

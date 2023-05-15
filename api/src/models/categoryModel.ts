@@ -11,4 +11,11 @@ const CategorySchema = new mongoose.Schema({
   }]
 });
 
+
+
+// All recipes's properties available other than just id
+CategorySchema.pre("find", function () {
+  this.populate("recipes");
+});
+
 export default mongoose.model('Category', CategorySchema);
