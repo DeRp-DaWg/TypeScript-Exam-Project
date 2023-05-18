@@ -1,11 +1,11 @@
-import { ObjectId} from 'mongoose';
+import { ObjectId, Schema, Types} from 'mongoose';
 import Recipe from "../models/recipeModel";
 import Ingredient from "../models/ingredientModel";
 import Category from "../models/categoryModel";
 import { RecipeType, RecipeTypeDocument, IngredientType, IngredientTypeDocument, CategoryType, CategoryTypeDocument } from '../types';
 export default {
-  createRecipe: async (_parent: never, { name, description, duration }: RecipeTypeDocument) => {
-    const newRecipe = new Recipe({ name, description, duration });
+  createRecipe: async (_parent: never, { name, description, duration, imgURL }: RecipeTypeDocument) => {
+    const newRecipe = new Recipe({ name, description, duration, imgURL });
     await newRecipe.save();
     return newRecipe;
   },
@@ -15,8 +15,8 @@ export default {
     return result ? true : false;
   },
   
-  updateRecipe: async (_parent:never, { id, name, description, duration }: RecipeTypeDocument) => {
-    const result = await Recipe.findByIdAndUpdate(id, {name, description, duration});
+  updateRecipe: async (_parent:never, { id, name, description, duration, imgURL }: RecipeTypeDocument) => {
+    const result = await Recipe.findByIdAndUpdate(id, {name, description, duration, imgURL}, {new: true});
     return result;
   },
   
@@ -93,6 +93,43 @@ export default {
     } catch (error) {
       console.error(error);
       return false;
+    }
+  },
+  
+  updateInstructionsFromRecipe: async (
+    _parent: never,
+    { recipeId, instructions }: { recipeId: string, instructions: [string]}
+  ) => {
+    try {
+      const result = await Recipe.findByIdAndUpdate(recipeId, {instructions});
+      return true;
+    } catch (error) {
+      console.error(error)
+      return false;
+    }
+  },
+  
+  updateIngredientsFromRecipe: async (
+    _parent: never,
+    { recipeId, ingredients }: { recipeId: string, ingredients: IngredientType[]}
+  ) => {
+    try {
+      const recipe : RecipeTypeDocument | null = await Recipe.findById(recipeId)
+      if (!recipe) { throw new Error(`Recipe with ID ${recipeId} not found.`); };
+            
+      recipe.ingredients = []
+      
+      for (const ingredient of ingredients) {
+        const newIngredient: IngredientTypeDocument = new Ingredient(ingredient);
+        await newIngredient.save();
+        recipe.ingredients.push(newIngredient._id)
+      }
+      
+      await recipe.save()
+      return true
+    } catch (error) {
+      console.log(error)
+      return false
     }
   },
   

@@ -5,6 +5,7 @@ type Recipe {
   name: String!,
   description: String!,
   duration: Int!,
+  imgURL: String,
   ingredients: [Ingredient!]!,
   instructions: [String!]!
 }
@@ -33,11 +34,18 @@ type Query {
   categories: [Category!]!
 }
 
+input IngredientInput {
+  id: ID,
+  name: String!,
+  amount: Int!,
+  measurement: String!
+}
+
 type Mutation {
   # Recipe CRUD
-  createRecipe(name: String!, description: String!, duration: Int!): Recipe
+  createRecipe(name: String!, description: String!, duration: Int!, imgURL: String): Recipe
   deleteRecipe(id: ID!): Boolean
-  updateRecipe(id: ID!, name: String!, description: String!, duration: Int!): Recipe
+  updateRecipe(id: ID!, name: String, description: String, duration: Int, imgURL: String): Recipe
   
   # Ingredient CRUD
   createIngredient(name: String!, amount: Int!, measurement: String!): Ingredient
@@ -50,6 +58,8 @@ type Mutation {
   addIngredientToRecipe(recipeId: ID!, ingredientId: ID!): Boolean
   removeIngredientFromRecipe(recipeId: ID!, ingredientId: ID!): Boolean
   addInstructionToRecipe(recipeId: ID!, instruction: String!): Boolean
+  updateInstructionsFromRecipe(recipeId: ID!, instructions: [String!]!): Boolean
+  updateIngredientsFromRecipe(recipeId: ID!, ingredients: [IngredientInput]!): Boolean
   addRecipeToCategory(recipeId: ID!, categoryId: ID!): Boolean
 }
 `;

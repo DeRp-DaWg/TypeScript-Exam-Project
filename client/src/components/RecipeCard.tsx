@@ -13,7 +13,7 @@ export default function RecipeCard({recipe}: Props) {
   function onCardClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     navigate("/recipes/"+event.currentTarget.dataset.id)
   }
-  
+    
   return (
     <Card>
       <CardActionArea data-id={recipe.id} onClick={onCardClick}>
@@ -23,7 +23,7 @@ export default function RecipeCard({recipe}: Props) {
       <CardMedia
         component="img"
         height="200"
-        image="/public/lasagne.png"
+        image={recipe.imgURL}
       />
       <CardContent sx={{height: 93, overflowWrap: "break-word"}}>
         <Typography>{recipe.description}</Typography>

@@ -3,6 +3,7 @@ type RecipeType = {
     name: string
     description: string
     duration: number
+    imgURL?: string
     ingredients: IngredientType[]
     instructions: string[]
 };

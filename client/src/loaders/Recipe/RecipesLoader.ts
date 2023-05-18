@@ -13,8 +13,9 @@ export default async function loader({params}: any) {
     query Recipes {
       recipes {
         id
-        description
         name
+        description
+        imgURL
       }
     }
   `;

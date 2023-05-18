@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { ThemeOptions, ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { GlobalStyles, useMediaQuery } from '@mui/material';
+import { Alert, Box, GlobalStyles, useMediaQuery } from '@mui/material';
 import * as color from '@mui/material/colors';
 
 interface Props {}
 
 
 export default function Root({}: Props) {
+  const [errorMsg, setErrorMsg] = useState<string>("")
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   
   const lightTheme: ThemeOptions = {
@@ -52,8 +53,11 @@ export default function Root({}: Props) {
     <>
       {/* <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }}/> */}
       <ThemeProvider theme={theme}>
-      <CssBaseline/>
+        <CssBaseline/>
         <Navbar/>
+        <Box height={50}>
+        {errorMsg && <Alert severity='error'>{errorMsg}</Alert>}
+        </Box>
         <Outlet/>
       </ThemeProvider>
     </>

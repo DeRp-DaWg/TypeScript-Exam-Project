@@ -13,6 +13,10 @@ const RecipeSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  imgURL: {
+    type: String,
+    required: false
+  },
   ingredients: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ingredient'

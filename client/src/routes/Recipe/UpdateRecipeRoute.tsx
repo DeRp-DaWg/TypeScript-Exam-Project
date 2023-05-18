@@ -1,38 +1,44 @@
 import { Box, Button, Slider, Stack, TextField, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridRow, GridRowsProp, useGridApiContext, useGridApiRef } from '@mui/x-data-grid';
 import React, { ChangeEvent, useCallback, useState } from 'react'
-import { Form, useNavigate, useSubmit } from 'react-router-dom'
-import { IngredientType } from '../../types'
+import { Form, useLoaderData, useNavigate, useSubmit } from 'react-router-dom'
+import { IngredientType, RecipeType } from '../../types'
 
 type Props = {}
 
-export default function CreateRecipeRoute({}: Props) {
-  const [name, setName] = useState<string>("")
-  const [description, setDescription] = useState<string>("")
-  const [duration, setDuration] = useState<number>(0)
-  const [ingredients, setIngredients] = useState<IngredientType[]>([])
-  const [rows, setRows] = useState<GridRowsProp>([])
-  const [instructions, setInstructions] = useState<string[]>([])
-  const submit = useSubmit()
-  const navigate = useNavigate()
+export default function UpdateRecipeRoute({}: Props) {
+  const {recipe} = useLoaderData() as {recipe: RecipeType}
   
+  const [name, setName] = useState<string>(recipe.name)
+  const [description, setDescription] = useState<string>(recipe.description)
+  const [imgURL, setImgURL] = useState<string>(recipe.imgURL ? recipe.imgURL : "")
+  const [duration, setDuration] = useState<number>(recipe.duration)
+  const [rows, setRows] = useState<GridRowsProp>(recipe.ingredients)
+  const [instructions, setInstructions] = useState<string[]>(recipe.instructions)
+  const submit = useSubmit()
+    
   const apiRef = useGridApiRef()
   
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
     const formData = new FormData()
+    formData.append("oldRecipe", JSON.stringify(recipe))
     formData.append("name", name)
     formData.append("description", description)
     formData.append("duration", duration.toString())
+    formData.append("imgURL", imgURL)
+    
     const rowModels = Array.from(apiRef.current.getRowModels().values())
     rowModels.forEach(rowModel => {
       rowModel.amount = parseInt(rowModel.amount)
     })
-    formData.append("ingredients", JSON.stringify(rowModels))
     
+    formData.append("ingredients", JSON.stringify(rowModels))
     formData.append("instructions", JSON.stringify(instructions))
     
+    
     submit(formData, {
-      method: "post",
+      method: "put",
       action: ""
     })
     
@@ -67,6 +73,7 @@ export default function CreateRecipeRoute({}: Props) {
         <TextField id='name' label='Name' variant='outlined' value={name} onChange={event => setName(event.target.value)} />
         <TextField id='description' label='Description' variant='outlined' value={description} onChange={event => setDescription(event.target.value)} />
         <Slider  step={5} marks min={5} max={40} value={duration} valueLabelDisplay="auto" onChange={(event, newValue) => setDuration(newValue as number)} />
+        <TextField id='imgURL' label='Image URL' variant='outlined' value={imgURL} onChange={event => setImgURL(event.target.value)} />
         <Typography variant='h5'>Ingredients</Typography>
         {/* <Stack direction="column">
           {ingredients.map((ingredient, index) => 
@@ -90,7 +97,7 @@ export default function CreateRecipeRoute({}: Props) {
             />
           )}
         </Stack>
-        <Button type='submit' variant='outlined'>Create</Button>
+        <Button type='submit' variant='outlined'>Update</Button>
       </Form>
     </>
   )

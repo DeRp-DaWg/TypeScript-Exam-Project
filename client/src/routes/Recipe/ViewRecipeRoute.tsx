@@ -1,12 +1,15 @@
 import React from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate, useSubmit } from 'react-router-dom'
 import { RecipeType } from '../../types'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 
 type Props = {}
 
 export default function ViewRecipeRoute({}: Props) {
   const {recipe} = useLoaderData() as {recipe: RecipeType}
+  
+  const submit = useSubmit()
+  const navigate = useNavigate()
   
   console.log(recipe)
   
@@ -34,6 +37,21 @@ export default function ViewRecipeRoute({}: Props) {
         )
       })}
       </ol>
+      <Button onClick={() => {
+        navigate("/recipes/update/"+recipe.id)
+      }}
+      >
+        Update
+      </Button>
+      <Button onClick={() => {
+        submit(null, {
+          method: "delete",
+          action: "/recipes/delete/"+recipe.id
+          })
+        }}
+      >
+        Delete
+      </Button>
     </>
   )
 }
