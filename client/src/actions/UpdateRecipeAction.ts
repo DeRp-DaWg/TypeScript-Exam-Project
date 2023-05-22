@@ -49,15 +49,18 @@ export default async function action({params, request}: {params: any, request: R
     imgUrl: formData.get("imgURL")
   }})
   .then((data) => {
+    console.log(data)
     return data
   })
   .catch((error) => {
+    console.log(error)
     return error
   })
   if (recipeResult instanceof Error) {
     return {}
   }
   const recipe = recipeResult.data.updateRecipe as RecipeType
+  console.log(recipe)
   
   // Update the ingredients
   
@@ -113,6 +116,7 @@ export default async function action({params, request}: {params: any, request: R
   if (updateInstructions instanceof Error) {
     return {}
   }
+  
   
   // return redirect("/recipes/"+recipe.id)
   return null

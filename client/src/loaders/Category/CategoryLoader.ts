@@ -13,6 +13,7 @@ export default async function loader({params}: any) {
     query Category($categoryId: ID) {
       category(id: $categoryId) {
         name
+        imgURL
         recipes {
           id
           name

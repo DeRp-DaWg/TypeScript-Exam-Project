@@ -29,11 +29,18 @@ export default function UpdateRecipeRoute({}: Props) {
     formData.append("imgURL", imgURL)
     
     const rowModels = Array.from(apiRef.current.getRowModels().values())
+    const ingredients: IngredientType[] = []
     rowModels.forEach(rowModel => {
-      rowModel.amount = parseInt(rowModel.amount)
+      const newIngredient: IngredientType = {
+        name: rowModel.name,
+        amount: parseInt(rowModel.amount),
+        measurement: rowModel.measurement
+      }
+      ingredients.push(newIngredient)
+      // rowModel.amount = parseInt(rowModel.amount)
     })
     
-    formData.append("ingredients", JSON.stringify(rowModels))
+    formData.append("ingredients", JSON.stringify(ingredients))
     formData.append("instructions", JSON.stringify(instructions))
     
     

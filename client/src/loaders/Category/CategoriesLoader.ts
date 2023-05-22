@@ -18,6 +18,7 @@ export default async function loader({params}: any) {
           id
           name
           description
+          imgURL
         }
       }
     }

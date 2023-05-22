@@ -16,6 +16,7 @@ export default function ViewRecipeRoute({}: Props) {
   return (
     <>
       <Typography variant='h3'>{recipe.name}</Typography>
+      <img width={500} height={500} src={recipe.imgURL}/>
       <Typography variant='body1'>{recipe.description}</Typography>
       <Typography variant='h4'>Duration</Typography>
       <Typography variant='body1'>{recipe.duration} minutter</Typography>

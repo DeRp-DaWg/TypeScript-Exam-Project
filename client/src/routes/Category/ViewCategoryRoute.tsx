@@ -10,7 +10,7 @@ type Props = {}
 export default function ViewCategoryRoute({}: Props) {
   const {category} = useLoaderData() as {category: CategoryType}
   const navigate = useNavigate()
-  
+    
   function renderRecipes(recipes: RecipeType[]) {
     return recipes.map((recipe) => {
       return (
