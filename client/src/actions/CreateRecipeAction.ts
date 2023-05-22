@@ -40,12 +40,9 @@ export default async function action({params, request}: {params: any, request: R
   
   // Create the recipe
   const recipeMutation = gql`
-    mutation CreateRecipe($name: String!, $description: String!, $duration: Int!) {
-      createRecipe(name: $name, description: $description, duration: $duration) {
+    mutation CreateRecipe($name: String!, $description: String!, $duration: Int!, $imgUrl: String) {
+      createRecipe(name: $name, description: $description, duration: $duration, imgURL: $imgUrl) {
         id
-        name
-        description
-        duration
       }
     }
   `
@@ -53,7 +50,8 @@ export default async function action({params, request}: {params: any, request: R
   const recipeResult: FetchResult<any> | Error = await client.mutate({mutation: recipeMutation, variables: {
     name: formData.get("name"),
     description: formData.get("description"),
-    duration: parseInt(formData.get("duration")!.toString())
+    duration: parseInt(formData.get("duration")!.toString()),
+    imgUrl: formData.get("imgURL")
   }})
   .then((data) => {
     return data

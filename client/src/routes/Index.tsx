@@ -15,7 +15,7 @@ export default function Index({}: Props) {
   function renderCategoryContainers(): JSX.Element[] {
     return categories.map(category => {
       return (
-        <CategoryContainer key={"category-"+category.name} category={category}/>
+        <CategoryContainer key={category.id} category={category}/>
       )
     })
   }

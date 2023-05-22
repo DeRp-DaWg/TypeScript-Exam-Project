@@ -10,14 +10,13 @@ export default async function action({params, request}: {params: any, request: r
   const client = ApolloClientProvider
   
   const mutation = gql`
-    mutation CreateCategory($name: String!, $imgUrl: String) {
-      createCategory(name: $name, imgURL: $imgUrl) {
-        id
-      }
+    mutation AddRecipeToCategory($recipeId: ID!, $categoryId: ID!) {
+      addRecipeToCategory(recipeId: $recipeId, categoryId: $categoryId)
     }
   `
+  
   const formData = await request.formData()
-  const result = await client.mutate({mutation: mutation, variables: {name: formData.get("name"), imgUrl: formData.get("imgURL")}})
+  const result = await client.mutate({mutation: mutation, variables: {recipeId: formData.get("recipeId"), categoryId: params.categoryId}})
   const category = result.data.createCategory as CategoryType
   return {category}
 }

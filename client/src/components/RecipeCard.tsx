@@ -5,18 +5,20 @@ import { useNavigate } from 'react-router-dom'
 
 type Props = {
   recipe: RecipeType
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
 }
 
-export default function RecipeCard({recipe}: Props) {
+export default function RecipeCard({recipe, onClick}: Props) {
   const navigate = useNavigate()
   
   function onCardClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     navigate("/recipes/"+event.currentTarget.dataset.id)
   }
-    
+  
   return (
     <Card>
-      <CardActionArea data-id={recipe.id} onClick={onCardClick}>
+      <CardActionArea data-id={recipe.id} onClick={(event) => {onClick ? onClick(event) : onCardClick(event)}}>
+      
       <CardHeader
         title={recipe.name}
       />

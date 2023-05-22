@@ -38,8 +38,7 @@ export default function UpdateRecipeRoute({}: Props) {
     
     
     submit(formData, {
-      method: "put",
-      action: ""
+      method: "put"
     })
     
     console.log("test")

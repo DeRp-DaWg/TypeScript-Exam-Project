@@ -4,7 +4,7 @@ type RecipeType = {
     name: string
     description: string
     duration: number
-    imgURL: string,
+    imgURL: string
     ingredients: IngredientType[]
     instructions: string[]
 };
@@ -17,6 +17,7 @@ type IngredientType = {
 
 type CategoryType = {
     name: string
+    imgURL: string
     recipes: RecipeType[]
 };
 

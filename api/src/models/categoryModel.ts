@@ -5,6 +5,10 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  imgURL: {
+    type: String,
+    required: false
+  },
   recipes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Recipe'

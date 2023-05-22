@@ -9,10 +9,13 @@ export default function Navbar({}: Props) {
   
   function useRouteMatch(patterns: readonly string[]) {
     const { pathname } = useLocation();
-  
+
     for (let i = 0; i < patterns.length; i += 1) {
       const pattern = patterns[i];
-      const possibleMatch = matchPath(pattern, pathname);
+      const possibleMatch = matchPath({
+        path: pattern, end: false},
+        pathname
+      );
       if (possibleMatch !== null) {
         return possibleMatch;
       }
@@ -22,14 +25,12 @@ export default function Navbar({}: Props) {
   }
   
   function CustomTabs() {
-    const routeMatch = useRouteMatch(["/", "/search", "/categories", "/recipes"])
-    let currentTab = routeMatch?.pattern.path
-    if (!currentTab) {currentTab = "/"}
+    const routeMatch = useRouteMatch(["/categories", "/recipes", "/"])
+    const currentTab = routeMatch?.pattern.path
     
     return (
       <Tabs value={currentTab} textColor="secondary" indicatorColor="secondary">
         <Tab label="Home" value="/" to="/" component={Link} sx={{color: theme.palette.common.black}}/>
-        <Tab label="Search" value="/search" to="/search" component={Link} sx={{color: theme.palette.common.black}}/>
         <Tab label="Categories" value="/categories" to="/categories" component={Link} sx={{color: theme.palette.common.black}}/>
         <Tab label="Recipes" value="/recipes" to="/recipes" component={Link} sx={{color: theme.palette.common.black}}/>
       </Tabs>

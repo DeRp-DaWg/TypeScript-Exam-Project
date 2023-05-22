@@ -18,6 +18,7 @@ type IngredientType = {
 type CategoryType = {
     id?: string
     name: string
+    imgURL: string
     recipes: RecipeType[]
 };
 

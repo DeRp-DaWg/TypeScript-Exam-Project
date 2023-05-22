@@ -20,6 +20,7 @@ type Ingredient {
 type Category {
   id: ID!,
   name: String!,
+  imgURL: String,
   recipes: [Recipe!]!
 }
 
@@ -52,7 +53,7 @@ type Mutation {
   deleteIngredient(id: ID!): Boolean
   
   # Category CRUD
-  createCategory(name: String!): Category
+  createCategory(name: String!, imgURL: String): Category
   
   # Other
   addIngredientToRecipe(recipeId: ID!, ingredientId: ID!): Boolean

@@ -14,7 +14,7 @@ export default function ViewRecipesRoute({}: Props) {
     <>
       <Button variant='outlined' onClick={() => navigate("create")}>Create new recipe</Button>
       {recipes.map(recipe => 
-        <RecipeCard recipe={recipe}/>
+        <RecipeCard key={recipe.id} recipe={recipe}/>
       )}
     </>
   )

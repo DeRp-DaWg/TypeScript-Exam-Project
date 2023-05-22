@@ -9,6 +9,7 @@ type Props = {}
 export default function CreateRecipeRoute({}: Props) {
   const [name, setName] = useState<string>("")
   const [description, setDescription] = useState<string>("")
+  const [imgURL, setImgURL] = useState<string>("")
   const [duration, setDuration] = useState<number>(0)
   const [ingredients, setIngredients] = useState<IngredientType[]>([])
   const [rows, setRows] = useState<GridRowsProp>([])
@@ -23,21 +24,18 @@ export default function CreateRecipeRoute({}: Props) {
     formData.append("name", name)
     formData.append("description", description)
     formData.append("duration", duration.toString())
+    formData.append("imgURL", imgURL)
+
     const rowModels = Array.from(apiRef.current.getRowModels().values())
     rowModels.forEach(rowModel => {
       rowModel.amount = parseInt(rowModel.amount)
     })
     formData.append("ingredients", JSON.stringify(rowModels))
-    
     formData.append("instructions", JSON.stringify(instructions))
     
     submit(formData, {
-      method: "post",
-      action: ""
+      method: "post"
     })
-    
-    console.log("test")
-    // navigate("/recipes")
   }
   
   function addIngredientRow() {
@@ -67,17 +65,8 @@ export default function CreateRecipeRoute({}: Props) {
         <TextField id='name' label='Name' variant='outlined' value={name} onChange={event => setName(event.target.value)} />
         <TextField id='description' label='Description' variant='outlined' value={description} onChange={event => setDescription(event.target.value)} />
         <Slider  step={5} marks min={5} max={40} value={duration} valueLabelDisplay="auto" onChange={(event, newValue) => setDuration(newValue as number)} />
+        <TextField id='imgURL' label='Image URL' variant='outlined' value={imgURL} onChange={event => setImgURL(event.target.value)} />
         <Typography variant='h5'>Ingredients</Typography>
-        {/* <Stack direction="column">
-          {ingredients.map((ingredient, index) => 
-            <Box key={index}>
-              <TextField value={ingredient.name} data-index={index} data-type="name" onChange={updateIngredient}/>
-              <TextField value={ingredient.name} data-index={index} data-type="amount" onChange={updateIngredient}/>
-              <TextField value={ingredient.name} data-index={index} data-type="measurement" onChange={updateIngredient}/>
-            </Box>
-          )}
-        </Stack>
-        <Button variant='outlined' onClick={createIngredient}>Create ingredient</Button> */}
         <Button onClick={addIngredientRow} variant='outlined'>Add new ingredient</Button>
         <DataGrid apiRef={apiRef} rows={rows} columns={columns}/>
         <Button onClick={addInstructionRow} variant='outlined'>Add new instruction</Button>
@@ -90,6 +79,7 @@ export default function CreateRecipeRoute({}: Props) {
             />
           )}
         </Stack>
+        
         <Button type='submit' variant='outlined'>Create</Button>
       </Form>
     </>

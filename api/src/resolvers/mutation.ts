@@ -31,8 +31,8 @@ export default {
     return result ? true : false;
   },
   
-  createCategory: async (_parent: never, { name }: CategoryTypeDocument) => {
-    const newCategory = new Category({ name });
+  createCategory: async (_parent: never, { name, imgURL }: CategoryTypeDocument) => {
+    const newCategory = new Category({ name, imgURL });
     await newCategory.save();
     return newCategory;
   },
